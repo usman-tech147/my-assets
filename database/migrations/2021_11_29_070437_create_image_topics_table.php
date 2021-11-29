@@ -17,8 +17,8 @@ class CreateImageTopicsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('topic_id');
             $table->string('title');
-            $table->longText('description');
-            $table->string('image_path');
+            $table->longText('description')->nullable();
+            $table->string('image_path')->nullable();
 
             $table->foreign('topic_id')
                 ->references('id')

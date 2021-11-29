@@ -18,13 +18,21 @@ class CreateTopicsTable extends Migration
             $table->unsignedBigInteger('subcategory_id');
             $table->string('title');
             $table->text('description');
-            $table->longText('html')->nullable()->default('N/A');
-            $table->longText('css')->nullable()->default('N/A');
-            $table->longText('jquery')->nullable()->default('N/A');
-            $table->longText('laravel')->nullable()->default('N/A');
-            $table->text('raw_sql')->nullable()->default('N/A');
-            $table->text('eloquent')->nullable()->default('N/A');
-            $table->text('query_builder')->nullable()->default('N/A');
+            $table->longText('html')->nullable();
+            $table->longText('css')->nullable();
+            $table->longText('jquery')->nullable();
+            $table->longText('model')->nullable();
+            $table->longText('controller')->nullable();
+            $table->longText('app')->nullable();
+            $table->longText('config')->nullable();
+            $table->longText('migrations')->nullable();
+            $table->longText('factories')->nullable();
+            $table->longText('seed')->nullable();
+            $table->longText('backend_extra')->nullable();
+
+            $table->text('raw_sql')->nullable();
+            $table->text('eloquent')->nullable();
+            $table->text('query_builder')->nullable();
             $table->tinyInteger('view_status')->nullable()->default(0);
 
             $table->foreign('subcategory_id')
