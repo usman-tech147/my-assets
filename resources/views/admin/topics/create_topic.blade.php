@@ -29,7 +29,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="inputAddress">Subcategory</label>
-                        <input type="hidden" value="{{$subcategory->id}}">
+                        <input type="hidden" value="{{$subcategory->id}}" name="subcategory">
                         <input type="text" class="form-control" value="{{$subcategory->title}}"
                                placeholder="{{$subcategory->title}}" readonly>
                     </div>
@@ -92,47 +92,46 @@
                     <a class="btn btn-success" id="insert-steps"> <i class="fa fa-plus"></i> </a>
                     <label for="steps" style="margin-left: 10px;">Steps</label>
                 </div>
+                <div class="form-group" id="images">
+                    <a class="btn btn-success" id="insert-images"> <i class="fa fa-plus"></i> </a>
+                    <label for="images" style="margin-left: 10px">Images</label>
+                </div>
 
-{{--                <div class="form-group" id="step_one">--}}
+
+                <div class="form-group" id="links">
+                    <a class="btn btn-success" id="insert-links"> <i class="fa fa-plus"></i> </a>
+                    <label for="links" style="margin-left: 10px">Url Links</label>
+                </div>
+{{--                <div class="form-group" id="url_one">--}}
 {{--                    <div class="form-row" style="margin-top: 5px">--}}
 {{--                        <div class="form-group col-md-6">--}}
 {{--                            <label for="inputAddress">Title</label>--}}
-{{--                            <input type="text" class="form-control" id="title" placeholder="Topic Title">--}}
+{{--                            <input type="text" class="form-control" name="url_title[]" placeholder="Title">--}}
 {{--                        </div>--}}
 {{--                    </div>--}}
 {{--                    <div class="form-group">--}}
 {{--                        <label for="inputAddress">Description</label>--}}
-{{--                        <textarea id="query"--}}
+{{--                        <textarea name="url_description[]"--}}
 {{--                                  class="form-control editor" rows="5"--}}
-{{--                                  placeholder="query builder code..."></textarea>--}}
+{{--                                  placeholder="url description..."></textarea>--}}
 {{--                    </div>--}}
 {{--                    <div class="form-group">--}}
-{{--                        <label for="inputAddress">Query Builder</label>--}}
-{{--                        <textarea id="query"--}}
-{{--                                  class="form-control editor" rows="5"--}}
-{{--                                  placeholder="query builder code..."></textarea>--}}
+{{--                        <label for="exampleFormControlFile1">Example file input</label>--}}
+{{--                        <input type="file" class="form-control-file" id="exampleFormControlFile1">--}}
 {{--                    </div>--}}
-{{--                    <button class="btn btn-danger" id="remove_step1" onclick="removeStep('remove_step1')"> Remove </button>--}}
+{{--                    <button class="btn btn-danger" id="remove_url" onclick="removeUrl('remove_url')"> Remove--}}
+{{--                    </button>--}}
 {{--                </div>--}}
-
-                <div class="form-group">
-                    <a class="btn btn-success"> <i class="fa fa-plus"></i> </a>
-                    <label for="images" style="margin-left: 10px">Images</label>
-                </div>
-                <div class="form-group">
-                    <a class="btn btn-success"> <i class="fa fa-plus"></i> </a>
-                    <label for="links" style="margin-left: 10px">Url Links</label>
-                </div>
 
                 <button type="submit" id="save" class="btn btn-primary">Save</button>
             </form>
         </div>
     </div>
-{{--    <script>--}}
-{{--        $(document).ready(function () {--}}
-{{--            alert('working')--}}
-{{--        })--}}
-{{--    </script>--}}
+    {{--    <script>--}}
+    {{--        $(document).ready(function () {--}}
+    {{--            alert('working')--}}
+    {{--        })--}}
+    {{--    </script>--}}
 @endsection
 @section('script')
     <script>
@@ -161,14 +160,16 @@
                         "contenteditable",
                     ],
                 },
-            }).catch( error => {
-            console.error( error );
-        } )
+            }).catch(error => {
+            console.error(error);
+        })
     </script>
     <script>
         let step_no = 1;
-        $('#insert-steps').on('click',function () {
-            let html = '<div class="form-group" id="step_'+step_no+'">\n' +
+        let image_no = 1;
+        let link_no = 1;
+        $('#insert-steps').on('click', function () {
+            let html = '<div class="form-group" id="step_' + step_no + '">\n' +
                 '                    <div class="form-row" style="margin-top: 5px">\n' +
                 '                        <div class="form-group col-md-6">\n' +
                 '                            <label for="inputAddress">Title</label>\n' +
@@ -179,20 +180,85 @@
                 '                        <label for="inputAddress">Description</label>\n' +
                 '                        <textarea name="step_description[]" \n' +
                 '                                  class="form-control editor" rows="5"\n' +
-                '                                  placeholder="query builder code..."></textarea>\n' +
+                '                                  placeholder="description..."></textarea>\n' +
                 '                    </div>\n' +
                 '                    <div class="form-group">\n' +
-                '                        <label for="inputAddress">Query Builder</label>\n' +
+                '                        <label for="inputAddress">Step</label>\n' +
                 '                        <textarea name="step_code[]" \n' +
                 '                                  class="form-control editor" rows="5"\n' +
-                '                                  placeholder="query builder code..."></textarea>\n' +
+                '                                  placeholder="step code..."></textarea>\n' +
                 '                    </div>\n' +
-                '                    <button class="btn btn-danger" id="rm_step_'+step_no+'" onclick="removeStep('+step_no+')"> Remove </button>\n' +
+                '                    <button class="btn btn-danger" id="rm_step_' + step_no + '" onclick="removeStep(' + step_no + ')"> Remove </button>\n' +
                 '                </div>';
 
             $('#steps').append(html);
             step_no += 1;
-        })
+        });
+        function removeStep(id) {
+            let parent_id = $('#rm_step_' + id).parent().attr('id');
+            $('#' + parent_id).remove();
+        }
+
+        // add images
+        $('#insert-images').on('click', function () {
+            let html = '<div class="form-group" id="image_' + image_no + '">\n' +
+                '                    <div class="form-row" style="margin-top: 5px">\n' +
+                '                        <div class="form-group col-md-6">\n' +
+                '                            <label for="inputAddress">Title ' + image_no + '</label>\n' +
+                '                            <input type="text" class="form-control" name="image_title[]" placeholder="Title">\n' +
+                '                        </div>\n' +
+                '                    </div>\n' +
+                '                    <div class="form-group">\n' +
+                '                        <label for="inputAddress">Description</label>\n' +
+                '                        <textarea name="image_description[]"\n' +
+                '                                  class="form-control editor" rows="5"\n' +
+                '                                  placeholder="description..."></textarea>\n' +
+                '                    </div>\n' +
+                '                    <div class="form-group">\n' +
+                '                        <label for="exampleFormControlFile1">Example file input</label>\n' +
+                '                        <input type="file" class="form-control-file" name="images[]">\n' +
+                '                    </div>\n' +
+                '                    <button class="btn btn-danger" id="rm_image_' + image_no + '" onclick="removeImage(' + image_no + ')"> Remove\n' +
+                '                    </button>\n' +
+                '                </div>';
+
+            $('#images').append(html);
+            image_no += 1;
+        });
+        function removeImage(id) {
+            let parent_id = $('#rm_image_' + id).parent().attr('id');
+            $('#' + parent_id).remove();
+        }
+
+        $('#insert-links').on('click', function () {
+            let html = '<div class="form-group" id="link_' + link_no + '">\n' +
+                '                    <div class="form-row" style="margin-top: 5px">\n' +
+                '                        <div class="form-group col-md-6">\n' +
+                '                            <label for="inputAddress">Title '+link_no+'</label>\n' +
+                '                            <input type="text" class="form-control" name="link_title[]" placeholder="Topic Title">\n' +
+                '                        </div>\n' +
+                '                    </div>\n' +
+                '                    <div class="form-group">\n' +
+                '                        <label for="inputAddress">Description</label>\n' +
+                '                        <textarea name="link_description[]" \n' +
+                '                                  class="form-control editor" rows="5"\n' +
+                '                                  placeholder="query builder code..."></textarea>\n' +
+                '                    </div>\n' +
+                '                    <div class="form-group">\n' +
+                '                        <label for="inputAddress">Link</label>\n' +
+                '                            <input type="text" class="form-control" name="url_link[]" placeholder="Url Link">\n' +
+                '                    </div>\n' +
+                '                    <button class="btn btn-danger" id="rm_link_' + link_no + '" onclick="removeLink(' + link_no + ')"> Remove </button>\n' +
+                '                </div>';
+
+            $('#links').append(html);
+            link_no += 1;
+        });
+        function removeLink(id) {
+            let parent_id = $('#rm_link_' + id).parent().attr('id');
+            $('#' + parent_id).remove();
+        }
+
 
         $('#save').on('click', function (e) {
             e.preventDefault();
@@ -221,12 +287,6 @@
                 }
             })
         })
-
-        function removeStep(id) {
-            let parent_id = $('#rm_step_'+id).parent().attr('id');
-            $('#'+parent_id).remove();
-            // console.log($('#'+id).parent().attr('id'))
-        }
 
     </script>
 @endsection
