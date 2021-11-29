@@ -21,7 +21,7 @@
         @forelse($technologies as $technology)
             <div class="col-lg-3 col-6">
                 <!-- small box -->
-                <div class="small-box bg-info">
+                <div class="small-box bg-danger">
                     <div class="inner">
                         <h3>{{$technology->subcategories_count}}</h3>
 

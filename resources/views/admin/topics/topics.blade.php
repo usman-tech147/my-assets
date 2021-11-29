@@ -7,11 +7,12 @@
             <nav style="">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{route('admin.webTechnologies')}}">Web Technologies</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Subcategories</li>
+                    <li class="breadcrumb-item"><a href="{{url()->previous()}}">Subcategories</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Topics</li>
                 </ol>
             </nav>
         </div>
-        <div class="col-md-6 clearfix">
+        <div class="col-md-4 clearfix">
             <div class="input-group mb-3">
                 <input type="text" class="form-control">
                 <div class="input-group-append">
@@ -19,30 +20,33 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-2 clearfix">
+            <a href="{{route('admin.create.topic',[$subcategory])}}" class="btn btn-success float-right"> Add Topic </a>
+        </div>
     </div>
 
     <div class="row ">
 
-        @forelse($subcategories as $subcategory)
-            <div class="col-lg-3 col-6">
-                <!-- small box -->
-                <div class="small-box bg-info">
-                    <div class="inner">
-                        <h3>{{count($subcategory->topics->toArray())}}</h3>
+{{--        @forelse($subcategories as $subcategory)--}}
+{{--            <div class="col-lg-3 col-6">--}}
+{{--                <!-- small box -->--}}
+{{--                <div class="small-box bg-info">--}}
+{{--                    <div class="inner">--}}
+{{--                        <h3>{{count($subcategory->topics->toArray())}}</h3>--}}
 
-                        <p>{{$subcategory->title}}</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-bag"></i>
-                    </div>
-                    <a href="{{route('admin.getSubcategory.topics',[$subcategory->id])}}" class="small-box-footer">
-                        Topics
-                        <i class="fas fa-arrow-circle-right"></i>
-                    </a>
-                </div>
-            </div>
-        @empty
-        @endforelse
+{{--                        <p>{{$subcategory->title}}</p>--}}
+{{--                    </div>--}}
+{{--                    <div class="icon">--}}
+{{--                        <i class="ion ion-bag"></i>--}}
+{{--                    </div>--}}
+{{--                    <a href="#" class="small-box-footer">--}}
+{{--                        Topics--}}
+{{--                        <i class="fas fa-arrow-circle-right"></i>--}}
+{{--                    </a>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        @empty--}}
+{{--        @endforelse--}}
 
 
         {{--<div class="col-lg-3 col-6">--}}

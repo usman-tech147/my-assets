@@ -6,10 +6,10 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="{{asset('usman_2.jpeg')}}" class="img-circle" alt="User Image">
+                <img src="{{asset('light_house.jpg')}}" class="img-circle" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Usman Malik</a>
+                <a href="#" class="d-block">Assets</a>
             </div>
         </div>
 
@@ -29,6 +29,7 @@
                 </li>
                 <li class="nav-item menu-open">
                     <a href="{{route('admin.webTechnologies')}}" class="nav-link">
+
                         <i class="fab fa-dev"></i>
                         <p style="margin-left: 10px;">
                             Web Technologies

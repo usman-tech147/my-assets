@@ -33,7 +33,7 @@ class AdminController extends Controller
 
     public function getSubcategories(Category $category)
     {
-        $subcategories = $category->subcategories;
+        $subcategories = $category->subcategories->sortBy('title');
         return view('admin.web_subcategories',compact('subcategories'));
     }
 
