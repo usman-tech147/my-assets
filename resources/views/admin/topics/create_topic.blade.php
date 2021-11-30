@@ -128,7 +128,7 @@
                     </div>
                     <div class="form-group col-md-4">
                         <label>Query Builder</label>
-                        <textarea id="query" name="query"
+                        <textarea id="query" name="db_query_builder"
                                   class="form-control" rows="5"
                                   placeholder="query builder code..."></textarea>
                     </div>
@@ -152,8 +152,8 @@
 
                 <div class="form-group">
                     <label>Description</label>
-                    <textarea id="description" name="description"
-                              class="form-control editor"
+                    <textarea id="topic_description" name="topic_description"
+                              class="form-control"
                               placeholder="description..."></textarea>
                 </div>
 
@@ -163,35 +163,36 @@
     </div>
 @endsection
 @section('script')
-    <script>
-        ClassicEditor.create(document.querySelector(".editor"), {
-            heading: {
-                options: [
-                    {model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph'},
-                    {model: 'heading3', view: 'h3', title: 'Heading', class: 'ck-heading_heading3'},
-                ]
-            },
-            toolbar: {
-                items: [
-                    "heading",
-                    "fontFamily",
-                    "|",
-                    "bold",
-                    "italic",
-                    "link",
-                    "bulletedList",
-                    "numberedList",
-                    "blockQuote",
-                    "undo",
-                    "redo",
-                    "|",
-                    "contenteditable",
-                ],
-            },
-        }).catch(error => {
-            console.error(error);
-        })
-    </script>
+    {{--<script>--}}
+        {{--ClassicEditor.create(document.querySelector(".editor"), {--}}
+            {{--heading: {--}}
+                {{--options: [--}}
+                    {{--{model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph'},--}}
+                    {{--{model: 'heading3', view: 'h3', title: 'Heading', class: 'ck-heading_heading3'},--}}
+                {{--]--}}
+            {{--},--}}
+            {{--toolbar: {--}}
+                {{--items: [--}}
+                    {{--"heading",--}}
+                    {{--"fontFamily",--}}
+                    {{--"|",--}}
+                    {{--"bold",--}}
+                    {{--"italic",--}}
+                    {{--"link",--}}
+                    {{--"bulletedList",--}}
+                    {{--"numberedList",--}}
+                    {{--"blockQuote",--}}
+                    {{--"undo",--}}
+                    {{--"redo",--}}
+                    {{--"|",--}}
+                    {{--"contenteditable",--}}
+                {{--],--}}
+            {{--},--}}
+        {{--}).catch(error => {--}}
+            {{--console.error(error);--}}
+        {{--})--}}
+    {{--</script>--}}
+
     <script>
         let step_no = 1;
         let image_no = 1;
@@ -302,6 +303,7 @@
         $('#save').on('click', function (e) {
             e.preventDefault();
             var formData = new FormData(document.getElementById('topic-details'));
+
             // for(var pair of formData.entries()) {
             //     console.log(pair[0]+ ', '+ pair[1]);
             // }
@@ -319,7 +321,7 @@
                 processData: false,
                 datatype: 'json',
                 success: function (response) {
-                    console.log(response);
+                    console.log(response)
                 },
                 error: function (jqxhr, status, exception) {
                     alert(exception);

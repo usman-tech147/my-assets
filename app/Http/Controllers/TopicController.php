@@ -6,6 +6,8 @@ use App\Models\StepTopic;
 use App\Models\Subcategory;
 use App\Models\Topic;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class TopicController extends Controller
 {
@@ -16,23 +18,28 @@ class TopicController extends Controller
 
     public function getSubcategoryTopics(Subcategory $subcategory)
     {
+        $topics = $subcategory->topics;
         $subcategory = $subcategory->id;
-        return view('admin.topics.topics', compact('subcategory'));
+
+        return view('admin.topics.topics', compact('subcategory', 'topics'));
     }
 
     public function createTopic(Subcategory $subcategory)
     {
+//        $this->deleteAllTopics();
+//        dd('deleted');
         return view('admin.topics.create_topic', compact('subcategory'));
     }
 
     public function storeTopic(Request $request)
     {
 
-//        return response()->json(['data' => $this->checkValue($request->title)]);
+//        return response()->json(['data' => $request->topic_description]);
+
         $topic = new Topic();
-        $topic->subcategory_id = 1;
+        $topic->subcategory_id = $request->subcategory;
         $topic->title = $this->checkValue($request->title);
-        $topic->description = 'static';
+        $topic->description = $this->checkValue($request->topic_description);
         $topic->html = $this->checkValue($request->html);
         $topic->css = $this->checkValue($request->css);
         $topic->jquery = $this->checkValue($request->jquery);
@@ -46,7 +53,7 @@ class TopicController extends Controller
         $topic->backend_extra = $this->checkValue($request->extra);
         $topic->raw_sql = $this->checkValue($request->raw);
         $topic->eloquent = $this->checkValue($request->eloquent);
-        $topic->query_builder = $this->checkValue($request->query);
+        $topic->query_builder = $this->checkValue($request->db_query_builder);
         $topic->save();
 
 
@@ -126,6 +133,14 @@ class TopicController extends Controller
 //        ]);
     }
 
+
+    public function viewTopic($id)
+    {
+//        $topic = Topic::where('id', $id)->get();
+        $topic = Topic::find($id);
+        return view('admin.topics.topic_details',compact('topic'));
+    }
+
     public function checkValue($value)
     {
         if (!empty($value) && $value) {
@@ -137,5 +152,12 @@ class TopicController extends Controller
     public function checkFile($file)
     {
 
+    }
+
+    public function deleteAllTopics()
+    {
+        Schema::disableForeignKeyConstraints();
+        DB::table('topics')->truncate();
+        Schema::enableForeignKeyConstraints();
     }
 }

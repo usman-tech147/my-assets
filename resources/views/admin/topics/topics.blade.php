@@ -27,26 +27,22 @@
 
     <div class="row ">
 
-{{--        @forelse($subcategories as $subcategory)--}}
-{{--            <div class="col-lg-3 col-6">--}}
-{{--                <!-- small box -->--}}
-{{--                <div class="small-box bg-info">--}}
-{{--                    <div class="inner">--}}
-{{--                        <h3>{{count($subcategory->topics->toArray())}}</h3>--}}
+        @forelse($topics as $topic)
+            <div class="col-md-12">
+                <div class="card">
+                    <h5 class="card-header">{{$topic->title}}</h5>
+                    <div class="card-body">
+                        <p class="card-text">
+                            {{$topic->description}}
+                        </p>
+                        <a href="#" class="btn btn-warning">Edit</a>
+                        <a href="{{route('admin.view.topic',[$topic->id])}}" class="btn btn-primary">View</a>
+                    </div>
+                </div>
+            </div>
+        @empty
 
-{{--                        <p>{{$subcategory->title}}</p>--}}
-{{--                    </div>--}}
-{{--                    <div class="icon">--}}
-{{--                        <i class="ion ion-bag"></i>--}}
-{{--                    </div>--}}
-{{--                    <a href="#" class="small-box-footer">--}}
-{{--                        Topics--}}
-{{--                        <i class="fas fa-arrow-circle-right"></i>--}}
-{{--                    </a>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        @empty--}}
-{{--        @endforelse--}}
+        @endforelse
 
 
         {{--<div class="col-lg-3 col-6">--}}

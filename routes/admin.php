@@ -28,4 +28,6 @@ Route::post('update/subcategory',[AdminController::class, 'updateSubcategory'])-
 
 Route::get('/topics/{subcategory}',[TopicController::class, 'getSubcategoryTopics'])->name('admin.getSubcategory.topics');
 Route::get('/create/topic/{subcategory?}',[TopicController::class, 'createTopic'])->name('admin.create.topic');
+Route::get('/view/topic/{topic?}',[TopicController::class, 'viewTopic'])->name('admin.view.topic');
+
 Route::post('/store/topic',[TopicController::class, 'storeTopic'])->name('admin.store.topic');
