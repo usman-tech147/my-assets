@@ -13,16 +13,8 @@ class Topic extends Model
     {
         return $this->belongsTo(Subcategory::class);
     }
-    public function stepTopics()
+    public function subtopics()
     {
-        return $this->hasMany(StepTopic::class);
-    }
-    public function linkTopics()
-    {
-        return $this->hasMany(LinkTopic::class);
-    }
-    public function imageTopics()
-    {
-        return $this->hasMany(ImageTopic::class);
+        return $this->hasMany(Subtopic::class);
     }
 }

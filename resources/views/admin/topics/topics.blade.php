@@ -30,10 +30,10 @@
         @forelse($topics as $topic)
             <div class="col-md-12">
                 <div class="card">
-                    <h5 class="card-header">{{$topic->title}}</h5>
+                    <h5 class="card-header">{{$topic->topic_title}}</h5>
                     <div class="card-body">
                         <p class="card-text">
-                            {{$topic->description}}
+                            {!! $topic->topic_description !!}
                         </p>
                         <a href="#" class="btn btn-warning">Edit</a>
                         <a href="{{route('admin.view.topic',[$topic->id])}}" class="btn btn-primary">View</a>

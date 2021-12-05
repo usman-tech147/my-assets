@@ -16,24 +16,11 @@ class CreateTopicsTable extends Migration
         Schema::create('topics', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('subcategory_id');
-            $table->string('title');
-            $table->text('description');
-            $table->longText('html')->nullable();
-            $table->longText('css')->nullable();
-            $table->longText('jquery')->nullable();
-            $table->longText('model')->nullable();
-            $table->longText('controller')->nullable();
-            $table->longText('app')->nullable();
-            $table->longText('config')->nullable();
-            $table->longText('migrations')->nullable();
-            $table->longText('factories')->nullable();
-            $table->longText('seed')->nullable();
-            $table->longText('backend_extra')->nullable();
-
-            $table->text('raw_sql')->nullable();
-            $table->text('eloquent')->nullable();
-            $table->text('query_builder')->nullable();
-            $table->tinyInteger('view_status')->nullable()->default(0);
+            $table->text('topic_title');
+            $table->mediumText('topic_description')->nullable();
+            $table->unsignedInteger('view_status')
+                ->nullable()
+                ->default(0);
 
             $table->foreign('subcategory_id')
                 ->references('id')

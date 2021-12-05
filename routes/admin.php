@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\AdminController;
+
 use App\Http\Controllers\TopicController;
 
 Route::get('/admin/login',[AdminLoginController::class, 'showLoginForm'])->name('admin.login.form');
@@ -29,5 +30,6 @@ Route::post('update/subcategory',[AdminController::class, 'updateSubcategory'])-
 Route::get('/topics/{subcategory}',[TopicController::class, 'getSubcategoryTopics'])->name('admin.getSubcategory.topics');
 Route::get('/create/topic/{subcategory?}',[TopicController::class, 'createTopic'])->name('admin.create.topic');
 Route::get('/view/topic/{topic?}',[TopicController::class, 'viewTopic'])->name('admin.view.topic');
+Route::post('/subtopic',[TopicController::class, 'viewSubtopic'])->name('view.subtopic');
 
 Route::post('/store/topic',[TopicController::class, 'storeTopic'])->name('admin.store.topic');
