@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Extra\MicrosoftWordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,10 +14,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::get('/', [MicrosoftWordController::class, 'index'])->name('home');
+Route::get('/microsoft-word', [MicrosoftWordController::class, 'microsoftWord'])->name('microsoft-word');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
