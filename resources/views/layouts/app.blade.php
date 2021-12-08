@@ -37,6 +37,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('microsoft-word') }}">Microsoft Word</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('calculator') }}">Calculator</a>
+                    </li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
@@ -84,6 +87,7 @@
 </div>
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
+<script src="{{asset('js/easy-number-separator.js')}}"></script>
 @yield('script')
 
 </body>
