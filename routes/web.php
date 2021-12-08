@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Extra\MicrosoftWordController;
 use App\Http\Controllers\Extra\CalculatorController;
+use App\Http\Controllers\Extra\PdfController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,8 @@ Route::get('/microsoft-word', [MicrosoftWordController::class, 'microsoftWord'])
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //pdf
+Route::get('/pdf-document', [PdfController::class, 'pdfDocument'])->name('pdf-document');
+Route::get('export/pdf-document', [PdfController::class, 'exportPDF'])->name('export-pdf');
 
 //calculator
 Route::get('/calculator', [CalculatorController::class, 'calculator'])->name('calculator');
