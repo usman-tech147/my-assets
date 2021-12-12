@@ -28,6 +28,9 @@ Route::get('edit/subcategory',[AdminController::class, 'editSubcategory'])->name
 Route::post('update/subcategory',[AdminController::class, 'updateSubcategory'])->name('admin.update.subcategory');
 
 Route::get('/topics/{subcategory}',[TopicController::class, 'getSubcategoryTopics'])->name('admin.getSubcategory.topics');
+
+Route::post('/topics/ajax',[TopicController::class, 'getSubcategoryTopicsAjax'])->name('admin.getSubcategory.topics.ajax');
+
 Route::get('/create/topic/{subcategory?}',[TopicController::class, 'createTopic'])->name('admin.create.topic');
 Route::get('/view/topic/{topic?}',[TopicController::class, 'viewTopic'])->name('admin.view.topic');
 Route::post('/subtopic',[TopicController::class, 'viewSubtopic'])->name('view.subtopic');

@@ -18,11 +18,35 @@ class TopicController extends Controller
         $this->middleware('auth:admin');
     }
 
-    public function getSubcategoryTopics(Subcategory $subcategory)
+    public function getSubcategoryTopics($id)
     {
-        $topics = $subcategory->topics;
-        $subcategory = $subcategory->id;
-        return view('admin.topics.topics', compact('subcategory', 'topics'));
+//        $topics = Topic::with('subtopics')
+//            ->where('subcategory_id',$id)
+//            ->get();
+//        $subcategory = $id;
+//        return view('admin.topics.topics', compact('subcategory','topics'));
+
+        $subcategory = $id;
+        return view('admin.topics.topics', compact('subcategory'));
+    }
+
+    public function getSubcategoryTopicsAjax(Request $request)
+    {
+        if ($request->current == 1) {
+            $start = 0;
+        } else {
+            $start = ($request->current - 1) * $request->length;
+        }
+        $topics = Topic::with('subtopics')
+            ->where('subcategory_id',$request->subcategory)
+            ->offset($start)
+            ->limit($request->length)
+            ->get()
+            ->toArray();
+        $total = Topic::where('topic_title','!=',null)->count();
+
+        $arrayName = array('1' => $topics, '2' => $total);
+        return response()->json($arrayName);
     }
 
     public function createTopic(Subcategory $subcategory)
@@ -48,22 +72,24 @@ class TopicController extends Controller
         $topic->save();
 
         $count = 0;
-        for($i=0; $i<count($request->snippets); $i++)
+        if(isset($request->snippets))
         {
-            $subTopic = new Subtopic;
-            $subTopic->subtitle = $request->subtitles[$i];
-            $subTopic->command = $request->commands[$i];
-            $subTopic->snippet = $request->snippets[$i];
-            $subTopic->topic_id = $topic->id;
+            for($i=0; $i<count($request->snippets); $i++)
+            {
+                $subTopic = new Subtopic;
+                $subTopic->subtitle = $request->subtitles[$i];
+                $subTopic->command = $request->commands[$i];
+                $subTopic->snippet = $request->snippets[$i];
+                $subTopic->topic_id = $topic->id;
 
-            if($subTopic->save()){
-                $count++;
-            }
-            else{
-                return response()->json(['data' => "subtopic not saved"]);
+                if($subTopic->save()){
+                    $count++;
+                }
+                else{
+                    return response()->json(['data' => "subtopic not saved"]);
+                }
             }
         }
-
         return response()->json(['data' => $count]);
     }
 

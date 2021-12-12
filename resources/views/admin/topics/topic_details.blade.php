@@ -4,33 +4,20 @@
 
     <div class="row">
 
-        <div class="col-md-12">
+        <div class="col-md-2">
             @foreach ($subtopics as $subtopic)
                 @if(!empty($subtopic->subtitle))
-                    <button class="btn btn-success"
-                            onclick="getSubtopicDetails('{{$subtopic->id}}')" style="margin: 5px">
-                        {{$subtopic->subtitle}}
+                    <button class="btn btn-block btn-outline-success" id="btn_{{$subtopic->id}}"
+                            onclick="getSubtopicDetails('{{$subtopic->id}}')" style="box-shadow: none">
+                        <strong>{{$subtopic->subtitle}}</strong>
                     </button>
+                    <br>
                 @endif
             @endforeach
         </div>
 
-        <div class="col-md-12" id="show_content" style="margin-top: 20px">
+        <div class="col-md-10" id="show_content">
         </div>
-        {{--<br>--}}
-        {{--<div class="col-md-12">--}}
-            {{--<label for=""> Description </label>--}}
-            {{--<div>--}}
-                {{--{!! $topic->topic_description !!}--}}
-            {{--</div>--}}
-        {{--</div>--}}
-        {{--<br>--}}
-        {{--<div class="col-md-12">--}}
-            {{--<label for=""> Controller </label>--}}
-            {{--<div>--}}
-                {{--{!! $topic->topic_controller !!}--}}
-            {{--</div>--}}
-        {{--</div>--}}
     </div>
 
 
@@ -42,7 +29,8 @@
 
         function getSubtopicDetails(id) {
 
-            // alert(value+' '+id)
+            $('.btn').removeClass('bg-success');
+            $('#btn_'+id).addClass('bg-success')
 
             $.ajax({
 
@@ -50,12 +38,8 @@
                 type: 'post',
                 data: { id: id, _token:'{{csrf_token()}}'},
                 success: function (response) {
-
-                    // let key = Object.keys(response[0]);
-                    // let html = '<div>'+ response[0][key] +'</div>';
                     let html = '<div>'+ response[0]['snippet'] +'</div>';
                     $('#show_content').html(html);
-
                 },
                 error: function () {
                     console.log("error")
