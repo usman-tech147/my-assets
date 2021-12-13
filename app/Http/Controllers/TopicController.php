@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Subcategory;
 use App\Models\Subtopic;
 use App\Models\Topic;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
+use function PHPUnit\Framework\isEmpty;
 
 class TopicController extends Controller
 {
@@ -20,12 +22,6 @@ class TopicController extends Controller
 
     public function getSubcategoryTopics($id)
     {
-//        $topics = Topic::with('subtopics')
-//            ->where('subcategory_id',$id)
-//            ->get();
-//        $subcategory = $id;
-//        return view('admin.topics.topics', compact('subcategory','topics'));
-
         $subcategory = $id;
         return view('admin.topics.topics', compact('subcategory'));
     }
@@ -38,12 +34,24 @@ class TopicController extends Controller
             $start = ($request->current - 1) * $request->length;
         }
         $topics = Topic::with('subtopics')
+            ->where(function ($query) use($request){
+                if($request->topic){
+                    $query->where('topic_title','like','%'.$request->topic.'%');
+                }
+            })
             ->where('subcategory_id',$request->subcategory)
             ->offset($start)
             ->limit($request->length)
             ->get()
             ->toArray();
-        $total = Topic::where('topic_title','!=',null)->count();
+        $total = Topic::with('subtopics')
+            ->where(function ($query) use($request){
+                if($request->topic){
+                    $query->where('topic_title','like','%'.$request->topic.'%');
+                }
+            })
+            ->where('subcategory_id',$request->subcategory)
+            ->count();
 
         $arrayName = array('1' => $topics, '2' => $total);
         return response()->json($arrayName);
@@ -51,14 +59,11 @@ class TopicController extends Controller
 
     public function createTopic(Subcategory $subcategory)
     {
-//        $this->deleteAllTopics();
-//        dd('deleted');
         return view('admin.topics.create_topic', compact('subcategory'));
     }
 
     public function storeTopic(Request $request)
     {
-//        return response()->json(['data' => $request->snippets[0]]);
         $validator = Validator::make($request->all(),[
             'topic_title' => ['required','unique:topics']
         ]);
@@ -69,6 +74,15 @@ class TopicController extends Controller
         $topic->subcategory_id = $request->subcategory_id;
         $topic->topic_title = $request->topic_title;
         $topic->topic_description = $this->checkValue($request->topic_description);
+        $date = date('Y_m_d-H-i-s');
+        if ($request->hasFile('topic_thumbnail')) {
+            $fileName = $date . '.' . $request->file('topic_thumbnail')->getClientOriginalName();
+            $request->file('topic_thumbnail')->move(public_path('/thumbnails/'), $fileName);
+            $topic->thumbnail = $fileName;
+        }
+        else{
+            $topic->thumbnail = 'no_image.jpg';
+        }
         $topic->save();
 
         $count = 0;
@@ -93,12 +107,27 @@ class TopicController extends Controller
         return response()->json(['data' => $count]);
     }
 
+    public function editTopic($id)
+    {
+        $topic = Topic::find($id);
+        return view('admin.topics.edit_topic',compact('topic'));
+    }
+
+    public function updateTopic(Request $request)
+    {
+        $topic = Topic::find($request->id);
+        $topic->topic_title = $request->topic_title;
+        $topic->topic_description = $request->topic_description;
+        $topic->save();
+        return redirect()->back();
+//        dd(Topic::find($request->id));
+    }
 
     public function viewTopic($id)
     {
-//        $topic = Topic::find($id);
+        $topic = Topic::find($id);
         $subtopics = Subtopic::select('id','subtitle')->where('topic_id',$id)->get();
-        return view('admin.topics.topic_details',compact('id','subtopics'));
+        return view('admin.topics.topic_details',compact('id','subtopics','topic'));
     }
 
     public function viewSubTopic(Request $request)
@@ -113,11 +142,6 @@ class TopicController extends Controller
             return $value;
         }
         return null;
-    }
-
-    public function checkFile($file)
-    {
-
     }
 
     public function deleteAllTopics()

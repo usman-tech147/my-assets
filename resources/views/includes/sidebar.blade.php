@@ -32,7 +32,7 @@
 
                         <i class="fab fa-dev"></i>
                         <p style="margin-left: 10px;">
-                            Web Technologies
+                            Courses
                         </p>
                     </a>
                 </li>
@@ -40,7 +40,7 @@
                     <a href="#" class="nav-link">
                         <i class="fab fa-github"></i>
                         <p style="margin-left: 10px;">
-                            Git
+                            Repository
                         </p>
                     </a>
                 </li>
@@ -48,7 +48,7 @@
                     <a href="#" class="nav-link">
                         <i class="fa fa-fighter-jet" aria-hidden="true"></i>
                         <p style="margin-left: 10px;">
-                            Shortcut
+                            Short Courses
                         </p>
                     </a>
                 </li>
@@ -56,7 +56,7 @@
                     <a href="#" class="nav-link">
                         <i class="fas fa-tasks"></i>
                         <p style="margin-left: 10px;">
-                            Projects Manager
+                            Projects
                         </p>
                     </a>
                 </li>
@@ -80,7 +80,7 @@
                     <a href="#" class="nav-link">
                         <i class="fa fa-code" aria-hidden="true"></i>
                         <p>
-                            Laravel
+                            Notifications
                             <i class="fas fa-angle-left right"></i>
                             <span class="badge badge-info right">6</span>
                         </p>

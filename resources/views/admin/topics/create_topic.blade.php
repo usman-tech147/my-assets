@@ -735,6 +735,12 @@
                         <textarea class="summernote" id="description" name="topic_description"></textarea>
                     </div>
 
+                    {{--Thumbnail--}}
+                    <div class="form-group col-md-6">
+                        <label>Thumbnail</label>
+                        <input type="file" class="form-control-file" id="thumbnail" name="topic_thumbnail">
+                    </div>
+
                     <div class="col-md-12" id="element">
 
 
@@ -811,9 +817,9 @@
             e.preventDefault();
             var formData = new FormData(document.getElementById('topic-details'));
 
-            // for (var pair of formData.entries()) {
-            //     console.log(pair[0] + ', ' + pair[1]);
-            // }
+            for (var pair of formData.entries()) {
+                console.log(pair[0] + ', ' + pair[1]);
+            }
 
             // var input_array= $("input[name='snippets[]']").map(function() {
             //     return this.value;

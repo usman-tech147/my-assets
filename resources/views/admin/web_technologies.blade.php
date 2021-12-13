@@ -4,7 +4,7 @@
 
     <div class="row p-3">
         <div class="col-md-6">
-            <p class="h3"> Web Technologies </p>
+{{--            <p class="h3"> Web Technologies </p>--}}
         </div>
         <div class="col-md-6 clearfix">
             <div class="input-group mb-3">

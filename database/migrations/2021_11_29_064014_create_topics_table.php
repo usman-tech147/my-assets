@@ -18,6 +18,7 @@ class CreateTopicsTable extends Migration
             $table->unsignedBigInteger('subcategory_id');
             $table->text('topic_title');
             $table->mediumText('topic_description')->nullable();
+            $table->string('thumbnail')->nullable();
             $table->unsignedInteger('view_status')
                 ->nullable()
                 ->default(0);

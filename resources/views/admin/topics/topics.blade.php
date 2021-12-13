@@ -10,7 +10,6 @@
         div.scroll {
             margin: 4px;
             padding: 4px;
-            /*background-color: green;*/
             width: 500px;
             height: 150px;
             overflow-x: hidden;
@@ -34,9 +33,9 @@
         </div>
         <div class="col-md-4 clearfix">
             <div class="input-group mb-3">
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" id="search_topic">
                 <div class="input-group-append">
-                    <span class="input-group-text bg-dark">Search</span>
+                    <button class="input-group-text bg-dark" onclick="displayData(5)">Search</button>
                 </div>
             </div>
         </div>
@@ -141,6 +140,7 @@
                         data: {
                             current: options.current,
                             length: options.length,
+                            topic: $('#search_topic').val(),
                             subcategory: "{{$subcategory}}",
                             "_token": "{{ csrf_token() }}",
                         },
@@ -160,26 +160,28 @@
                                     '                                <div class="row">\n' +
                                     '                                    <div class="col-md-10" style="padding: 0">\n' +
                                     '                                        <h1 class="card-title"\n' +
-                                    '                                            ' +
                                     'style="font-size: 28px; text-transform: capitalize">\n' +
                                     '                                            ' + data[i]['topic_title'] + '\n' +
                                     '                                        </h1>\n' +
                                     '                                    </div>\n' +
                                     '                                    <div class="col-md-2">\n' +
                                     '<a href="{{url('/view/topic')}}/'+data[i]['id']+'"\n' +
-                                    'class="btn btn-sm btn-success" style="margin-left: 50px">\n' +
+                                    'class="btn btn-sm btn-success" style="margin-left: 40px">\n' +
                                     '                                            View\n' +
                                     '                                        </a>\n' +
-                                    '                                        <a href="#" class="btn btn-sm btn-warning">\n' +
+                                    '<a href="{{url('/edit/topic/')}}/'+data[i]['id']+'" ' +
+                                    'class="btn btn-sm btn-warning">\n' +
                                     '                                            Edit\n' +
                                     '                                        </a>\n' +
                                     '                                    </div>\n' +
                                     '                                </div>\n' +
                                     '                            </div>\n' +
                                     '                            <div class="card-horizontal">\n' +
-                                    '                                <div class="img-square-wrapper">\n' +
-                                    '<a href="{{asset('usman.jpeg')}}" data-lightbox="image-1" data-title="My caption">\n' +
-                                    '                                        <img class="" src="{{asset('usman.jpeg')}}"\n' +
+                                    '                                <div class="img-square-wrapper p-2">\n' +
+                                    '<a href="{{asset('/thumbnails')}}/' + data[i]['thumbnail'] + '" ' +
+                                    'data-lightbox="image-1" data-title="My caption">\n' +
+                                    '                                        <img class="" ' +
+                                    'src="{{asset('/thumbnails')}}/' + data[i]['thumbnail'] + '"\n' +
                                     '                                             height="170" width="150"\n' +
                                     '                                             alt="Card image cap">\n' +
                                     '                                    </a>\n' +
@@ -194,12 +196,13 @@
                                     '                                    </div>\n' +
                                     '                                </div>\n' +
                                     '                            </div>\n' +
-                                    '                            <div class="card-footer bg-dark">\n';
+                                    '                            <div class="card-footer bg-dark" style="padding-bottom: 0">\n';
                                     if(data[i]['subtopics'].length > 0)
                                     {
                                         for(let j=0; j<data[i]['subtopics'].length; j++){
                                             html += '<a href="#" ' +
-                                                'class="btn btn-sm btn-danger" style="text-transform:capitalize">\n' +
+                                                'class="btn btn-sm btn-danger" ' +
+                                                'style="text-transform:capitalize; margin-bottom: 10px">\n' +
                                                 ''+data[i]['subtopics'][j]['subtitle']+'</a>\n';
                                         }
                                     }else{

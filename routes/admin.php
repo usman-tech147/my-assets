@@ -29,10 +29,13 @@ Route::post('update/subcategory',[AdminController::class, 'updateSubcategory'])-
 
 Route::get('/topics/{subcategory}',[TopicController::class, 'getSubcategoryTopics'])->name('admin.getSubcategory.topics');
 
-Route::post('/topics/ajax',[TopicController::class, 'getSubcategoryTopicsAjax'])->name('admin.getSubcategory.topics.ajax');
-
+//topics
 Route::get('/create/topic/{subcategory?}',[TopicController::class, 'createTopic'])->name('admin.create.topic');
-Route::get('/view/topic/{topic?}',[TopicController::class, 'viewTopic'])->name('admin.view.topic');
-Route::post('/subtopic',[TopicController::class, 'viewSubtopic'])->name('view.subtopic');
-
 Route::post('/store/topic',[TopicController::class, 'storeTopic'])->name('admin.store.topic');
+Route::get('/edit/topic/{topic?}',[TopicController::class, 'editTopic'])->name('admin.edit.topic');
+Route::post('/update/topic/',[TopicController::class, 'updateTopic'])->name('admin.update.topic');
+Route::post('/topics/ajax',[TopicController::class, 'getSubcategoryTopicsAjax'])->name('admin.getSubcategory.topics.ajax');
+Route::get('/view/topic/{topic?}',[TopicController::class, 'viewTopic'])->name('admin.view.topic');
+
+//subtopics
+Route::post('/subtopic',[TopicController::class, 'viewSubtopic'])->name('view.subtopic');

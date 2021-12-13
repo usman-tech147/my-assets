@@ -1,0 +1,7 @@
+1: show image in edit section
+2: show default image if not exist
+3: form submit with front-end validation
+4: edit subtopics
+5: change summernote editor default settings
+6: after create new topic show pop up message and redirect to topics page
+7: same for edit module
