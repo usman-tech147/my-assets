@@ -2,29 +2,28 @@
 
 @section('content')
 
-    <div class="row p-3">
+    <div class="row bg-dark mb-2" style="padding-top: 10px; padding-bottom: 10px; border-radius: 5px">
         <div class="col-md-6">
-            <nav style="">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{route('admin.webTechnologies')}}">Web Technologies</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Subcategories</li>
-                </ol>
-            </nav>
+            <p class="h3">
+                <a href="{{route('admin.webTechnologies')}}" style="text-decoration: none">
+                    <span style="color: cyan;"> Courses </span>
+                </a> /
+                <span> Subcategories </span>
+            </p>
         </div>
         <div class="col-md-6 clearfix">
-            <div class="input-group mb-3">
+            <div class="input-group float-right" style="width: 300px">
                 <input type="text" class="form-control">
                 <div class="input-group-append">
-                    <span class="input-group-text bg-dark">Search</span>
+                    <span class="btn input-group-text bg-dark">Search</span>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="row ">
-
+    <div class="row">
         @forelse($subcategories as $subcategory)
-            <div class="col-lg-3 col-6">
+            <div class="col-md-3">
                 <!-- small box -->
                 <div class="small-box bg-info">
                     <div class="inner">
@@ -36,8 +35,7 @@
                         <i class="ion ion-bag"></i>
                     </div>
                     <a href="{{route('admin.getSubcategory.topics',[$subcategory->id])}}" class="small-box-footer">
-                        Topics
-                        <i class="fas fa-arrow-circle-right"></i>
+                        Topics <i class="fas fa-arrow-circle-right"></i>
                     </a>
                 </div>
             </div>

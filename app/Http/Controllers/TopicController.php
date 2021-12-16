@@ -91,11 +91,16 @@ class TopicController extends Controller
             for($i=0; $i<count($request->snippets); $i++)
             {
                 $subTopic = new Subtopic;
-                $subTopic->subtitle = $request->subtitles[$i];
-                $subTopic->command = $request->commands[$i];
-                $subTopic->snippet = $request->snippets[$i];
                 $subTopic->topic_id = $topic->id;
-
+                if(isset($request->subtitles[$i])){
+                    $subTopic->subtitle = $request->subtitles[$i];
+                }
+                if(isset($request->commands[$i])){
+                    $subTopic->command = $request->commands[$i];
+                }
+                if(isset($request->snippets[$i])){
+                    $subTopic->snippet = $request->snippets[$i];
+                }
                 if($subTopic->save()){
                     $count++;
                 }

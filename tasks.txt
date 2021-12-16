@@ -1,7 +1,14 @@
-1: show image in edit section
-2: show default image if not exist
-3: form submit with front-end validation
-4: edit subtopics
-5: change summernote editor default settings
-6: after create new topic show pop up message and redirect to topics page
-7: same for edit module
+1: each page have previous page button                                                                  [Not Done]
+2: form submit with front-end validation                                                                [Not Done]
+3: after create new topic show pop up message and redirect to topics page                               [Not Done]
+4: view subtopics (redirect on same view subtopic button in view topic page)                            [Not Done]
+5: after edit topic redirect to same page and show success message.                                     [Not Done]
+6: edit subtopics (show subtopics links in edit topic page and redirect to edit subtopics page)         [Not Done]
+7: copy to clipboard                                                                                    [Not Done]
+8: arrange code                                                                                         [Not Done]
+
+--------------------------------------------------------------------------------------------------
+9: show image in edit section                                                                           [Not Done]
+10: show default image if not exist                                                                     [Not Done]
+11: change summernote editor default settings                                                           [Not Done]
+

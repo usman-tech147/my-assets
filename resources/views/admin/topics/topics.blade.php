@@ -21,21 +21,49 @@
 
 @section('content')
 
-    <div class="row p-3">
+    {{--<div class="row p-3">--}}
+        {{--<div class="col-md-6">--}}
+            {{--<nav style="">--}}
+                {{--<ol class="breadcrumb">--}}
+                    {{--<li class="breadcrumb-item"><a href="{{route('admin.webTechnologies')}}">Web Technologies</a></li>--}}
+                    {{--<li class="breadcrumb-item"><a href="{{url()->previous()}}">Subcategories</a></li>--}}
+                    {{--<li class="breadcrumb-item active" aria-current="page">Topics</li>--}}
+                {{--</ol>--}}
+            {{--</nav>--}}
+        {{--</div>--}}
+        {{--<div class="col-md-4 clearfix">--}}
+            {{--<div class="input-group mb-3">--}}
+                {{--<input type="text" class="form-control" id="search_topic">--}}
+                {{--<div class="input-group-append">--}}
+                    {{--<button class="input-group-text bg-dark" onclick="displayData(5)">Search</button>--}}
+                {{--</div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+        {{--<div class="col-md-2 clearfix">--}}
+            {{--<a href="{{route('admin.create.topic',[$subcategory])}}" class="btn btn-success float-right"> Add Topic </a>--}}
+        {{--</div>--}}
+    {{--</div>--}}
+
+
+    <div class="row bg-dark mb-2" style="padding-top: 10px; padding-bottom: 10px; border-radius: 5px">
         <div class="col-md-6">
-            <nav style="">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{route('admin.webTechnologies')}}">Web Technologies</a></li>
-                    <li class="breadcrumb-item"><a href="{{url()->previous()}}">Subcategories</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Topics</li>
-                </ol>
-            </nav>
+            <p class="h3">
+                <a href="{{route('admin.webTechnologies')}}" style="text-decoration: none">
+                    <span style="color: #39cccc;"> Courses </span>
+                </a> /
+                <a href="{{url()->previous()}}" style="text-decoration: none">
+                    <span style="color: #39cccc;"> Subcategories </span>
+                </a> /
+                <span> Topics </span>
+            </p>
         </div>
-        <div class="col-md-4 clearfix">
-            <div class="input-group mb-3">
+        <div class="col-md-4">
+            <div class="input-group">
                 <input type="text" class="form-control" id="search_topic">
                 <div class="input-group-append">
-                    <button class="input-group-text bg-dark" onclick="displayData(5)">Search</button>
+                    <button class="input-group-text bg-dark" onclick="displayData(5)">
+                        Search
+                    </button>
                 </div>
             </div>
         </div>
@@ -128,6 +156,7 @@
         });
 
         function displayData(length) {
+
             $('#paging').pagination({
                 total: 1,
                 current: 1,
@@ -152,21 +181,24 @@
                         let html = '<div class="row ">';
                         if (data.length > 0) {
                             for (let i = 0; i < data.length; i++) {
-                                html += '<div class="container-fluid">\n' +
+                                html += '<div class="container-fluid" style="background-color:#fff">\n' +
                                     '                <div class="row">\n' +
                                     '                    <div class="col-12 mt-3">\n' +
                                     '                        <div class="card">\n' +
-                                    '                            <div class="card-header bg-dark" style="padding-bottom: 0">\n' +
+                                    '                            <div class="card-header" ' +
+                                    'style="padding-bottom: 0; background-color: #FDEDED">\n' +
                                     '                                <div class="row">\n' +
                                     '                                    <div class="col-md-10" style="padding: 0">\n' +
                                     '                                        <h1 class="card-title"\n' +
-                                    'style="font-size: 28px; text-transform: capitalize">\n' +
+                                    'style="font-size: 20px; text-transform: capitalize;' +
+                                    'font-weight: 900;">\n' +
                                     '                                            ' + data[i]['topic_title'] + '\n' +
                                     '                                        </h1>\n' +
                                     '                                    </div>\n' +
                                     '                                    <div class="col-md-2">\n' +
                                     '<a href="{{url('/view/topic')}}/'+data[i]['id']+'"\n' +
-                                    'class="btn btn-sm btn-success" style="margin-left: 40px">\n' +
+                                    'class="btn btn-sm" ' +
+                                    'style="margin-left: 40px; background-color:#605ca8; color:#fff">\n' +
                                     '                                            View\n' +
                                     '                                        </a>\n' +
                                     '<a href="{{url('/edit/topic/')}}/'+data[i]['id']+'" ' +
@@ -196,7 +228,8 @@
                                     '                                    </div>\n' +
                                     '                                </div>\n' +
                                     '                            </div>\n' +
-                                    '                            <div class="card-footer bg-dark" style="padding-bottom: 0">\n';
+                                    '                            <div class="card-footer" ' +
+                                    'style="padding-bottom: 0;background-color: #FDEDED">\n';
                                     if(data[i]['subtopics'].length > 0)
                                     {
                                         for(let j=0; j<data[i]['subtopics'].length; j++){

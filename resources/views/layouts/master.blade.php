@@ -24,6 +24,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <link rel="stylesheet" href="{{asset('summernote/summernote-bs4.min.css')}}">
     <link rel="stylesheet" href="{{asset('dist/css/lightbox.min.css')}}">
+    <link rel="stylesheet" href="{{asset('clipboard/copyToClipboard.css')}}">
 
 
 </head>
@@ -67,6 +68,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{asset('summernote/summernote-bs4.min.js')}}"></script>
 <script src="{{asset('js/pagination.min.js')}}"></script>
 <script src="{{asset('dist/js/lightbox.min.js')}}"></script>
+<script src="{{asset('clipboard/clipboard.min.js')}}"></script>
+
 
 @yield('script')
 
