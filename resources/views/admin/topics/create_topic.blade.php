@@ -183,7 +183,7 @@
                 processData: false,
                 datatype: 'json',
                 success: function (response) {
-                    console.log(response)
+                    window.location.href = '{{route('admin.getSubcategory.topics',[$subcategory->id])}}'
                 },
                 error: function (jqxhr, status, exception) {
                     alert(exception);

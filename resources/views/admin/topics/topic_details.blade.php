@@ -14,10 +14,11 @@
     <div class="row bg-dark mb-2" style="padding-top: 10px; padding-bottom: 10px; border-radius: 5px">
         <div class="col-md-6">
             <p class="h3">
-                <a href="{{route('admin.getSubcategory.topics',[$topic->subcategory->id])}}" style="text-decoration: none">
+                <a href="{{route('admin.getSubcategory.topics',[$topic->subcategory->id])}}"
+                   style="text-decoration: none">
                     <span style="color: cyan;"> Topics </span>
                 </a> /
-                <span> {{$topic->topic_title}} </span>
+                <span style="text-transform: capitalize"> {{$topic->topic_title}} </span>
             </p>
         </div>
     </div>
@@ -26,14 +27,14 @@
         <div class="col-md-2">
             <button class="btn btn-block btn-outline-success"
                     style="box-shadow: none" id="description">
-                <strong>topic description</strong>
+                <strong style="text-transform: capitalize">topic description</strong>
             </button>
             @if(!empty($subtopics))
                 @foreach ($subtopics as $subtopic)
                     @if(!empty($subtopic->subtitle))
                         <button class="btn btn-block btn-outline-success" id="btn_{{$subtopic->id}}"
                                 onclick="getSubtopicDetails('{{$subtopic->id}}')" style="box-shadow: none">
-                            <strong>{{$subtopic->subtitle}}</strong>
+                            <strong style="text-transform: capitalize">{{$subtopic->subtitle}}</strong>
                         </button>
                     @endif
                 @endforeach
@@ -45,17 +46,20 @@
 
         <div class="col-md-10" id="show_description">
             <div class="card">
-                <h5 class="card-header clearfix">
-                    {{$topic->topic_title}}
+                <h5 class="card-header clearfix" style="text-transform: capitalize">
+                    <strong>{{$topic->topic_title}}</strong>
                 </h5>
                 <div class="card-body" style="padding: 10px">
                     <div class="card-row">
-                        <div class="col-md-12 bg-success mb-2" style="border-radius: 3px; padding:10px 10px 5px 10px">
-                            <p class="h3"> this is command </p>
-                        </div>
-                        <div class="col-md-12 bg-dark" style="border-radius: 3px; padding: 10px">
-                            {!! $topic->topic_description !!}
-                        </div>
+                        @if($topic->topic_description)
+                            <div class="col-md-12 bg-dark" style="border-radius: 3px; padding: 10px">
+                                {!! $topic->topic_description !!}
+                            </div>
+                        @else
+                            <div class="col-md-12 bg-dark text-center" style="border-radius: 3px; padding: 10px">
+                                No description available!
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -79,7 +83,6 @@
         })
 
         function getSubtopicDetails(id) {
-
             $('.btn').removeClass('bg-success');
             $('#btn_' + id).addClass('bg-success')
 
@@ -90,22 +93,29 @@
                 success: function (response) {
                     $('#show_description').hide();
                     let html = '<div class="card" style="padding: 10px">\n' +
-                        '                <h5 class="card-header clearfix">\n' +
-                        '                    ' + response[0]['subtitle'] + '\n' +
+                        '                <h5 class="card-header clearfix" style="text-transform: capitalize">\n' +
+                        '                    <strong>' + response[0]['subtitle'] + '</strong>\n' +
                         '<button class="btn btn-sm btn-primary float-right copy"' +
                         'onclick=copyText(' + response[0]['id'] + ')>' +
                         'Copy' +
                         '</button>\n' +
                         '                </h5>\n' +
-                        '                <div class="card-body" style="padding:10px">\n' +
-                        '<div class="col-md-12 bg-success mb-2" style="border-radius: 3px; padding:10px 10px 5px 10px">\n' +
-                        '                            <p class="h3"> ' + response[0]['command'] + ' </p>\n' +
-                        '                        </div>' +
-                        '<div class="col-md-12 bg-dark" style="border-radius: 3px; padding: 10px" id="text_' + response[0]['id'] + '">\n' +
-                        '                            ' + response[0]['snippet'] + '\n' +
-                        '                        </div>'+
-                        // '                    ' + response[0]['snippet'] + '\n' +
-                        '                </div>\n' +
+                        '                <div class="card-body" style="padding:10px">\n';
+                    if (response[0]['command']) {
+                        html += '<div class="col-md-12 bg-success mb-2" style="border-radius: 3px; padding:10px 10px 5px 10px">\n' +
+                            '                            <p class="h3"> ' + response[0]['command'] + ' </p>\n' +
+                            '                        </div>';
+                    }
+                    if (response[0]['snippet']) {
+                        html += '<div class="col-md-12 bg-dark" style="border-radius: 3px; padding: 10px" id="text_' + response[0]['id'] + '">\n' +
+                            '                            ' + response[0]['snippet'] + '\n' +
+                            '                        </div>';
+                    }else{
+                        html += '<div class="col-md-12 bg-dark text-center" style="border-radius: 3px; padding: 10px">\n' +
+                            '                                No description available!\n' +
+                            '                            </div>';
+                    }
+                    html += '                </div>\n' +
                         '            </div>';
                     $('#show_content').show().html(html);
                 },
