@@ -51,7 +51,8 @@
                 <a href="{{route('admin.webTechnologies')}}" style="text-decoration: none">
                     <span style="color: #39cccc;"> Courses </span>
                 </a> /
-                <a href="{{url()->previous()}}" style="text-decoration: none">
+                <a href="{{route('admin.getSubcategories',[$subcategory->category->id])}}" style="text-decoration: none">
+{{--                <a href="{{url()->previous()}}" style="text-decoration: none">--}}
                     <span style="color: #39cccc;"> Subcategories </span>
                 </a> /
                 <span> Topics </span>
@@ -68,7 +69,7 @@
             </div>
         </div>
         <div class="col-md-2 clearfix">
-            <a href="{{route('admin.create.topic',[$subcategory])}}" class="btn btn-success float-right"> Add Topic </a>
+            <a href="{{route('admin.create.topic',[$subcategory->id])}}" class="btn btn-success float-right"> Add Topic </a>
         </div>
     </div>
 
@@ -170,7 +171,7 @@
                             current: options.current,
                             length: options.length,
                             topic: $('#search_topic').val(),
-                            subcategory: "{{$subcategory}}",
+                            subcategory: "{{$subcategory->id}}",
                             "_token": "{{ csrf_token() }}",
                         },
                     }).done(function (response) {

@@ -39,3 +39,5 @@ Route::get('/view/topic/{topic?}',[TopicController::class, 'viewTopic'])->name('
 
 //subtopics
 Route::post('/subtopic',[TopicController::class, 'viewSubtopic'])->name('view.subtopic');
+Route::get('/edit/subtopic/{id?}',[TopicController::class, 'editSubtopic'])->name('edit.subtopic');
+Route::post('/update/subtopic/',[TopicController::class, 'updateSubtopic'])->name('update.subtopic');

@@ -3,68 +3,44 @@
     <div class="row bg-dark mb-2" style="padding-top: 10px; padding-bottom: 10px; border-radius: 5px">
         <div class="col-md-6">
             <p class="h3">
-                <a href="{{url()->previous()}}" style="text-decoration: none">
-                    <span style="color: cyan;"> Topics </span>
+                <a href="{{route('admin.edit.topic',[$subtopic->topic->id])}}" style="text-decoration: none">
+                    <span style="color: cyan;"> Topic </span>
                 </a> /
-                <span> {{$topic->topic_title}} </span>
+                <span> subtopic title </span>
             </p>
         </div>
     </div>
 
-    @if(count($topic->subtopics->toArray()) > 0)
-        <div class="row bg-dark mb-2" style="padding-top: 10px; padding-bottom: 10px; border-radius: 5px">
-            <div class="col-md-12">
-                @foreach($topic->subtopics as $subtopic)
-                    <a href="{{route('edit.subtopic',[$subtopic->id])}}"
-                       class="btn btn-danger"> {{$subtopic->subtitle}} </a>
-                @endforeach
-            </div>
-        </div>
-    @endif
-
     <div class="row">
         <div class="col-md-12">
-            {{--            <form id="edit-topic-details" action="{{route('admin.update.topic')}}" method="post">--}}
-            <form id="update-topic-details">
+            <form id="update-subtopic-details">
                 @csrf
 
-                {{--Subcategory--}}
-                <input type="hidden" value="{{$topic->id}}" name="id">
+                {{--Subtopic id--}}
+                <input type="hidden" value="{{$subtopic->id}}" name="id">
                 <div class="form-row">
 
-                    {{--Title--}}
+                    {{--Subtopic title--}}
                     <div class="form-group col-md-6">
                         <label>Title</label>
-                        <input type="text" class="form-control" id="title" name="topic_title"
-                               value="{{$topic->topic_title}}"
-                               placeholder="Topic Title">
+                        <input type="text" class="form-control" id="title" name="subtitle"
+                               value="{{$subtopic->subtitle}}"
+                               placeholder="Subtopic Title">
                     </div>
 
-                    {{--Description--}}
+                    {{--Subtopic command--}}
                     <div class="col-md-12">
-                        <label>Description</label>
-                        <textarea id="snippet_1">{{$topic->topic_description}}</textarea>
+                        <label>Commands / Instructions</label>
+                        <input type="text" name="command" class="form-control" value="{{$subtopic->command}}">
                     </div>
 
-                    {{--Thumbnail--}}
-                    <div class="form-group col-md-6">
-                        <label>Thumbnail</label>
-                        <input type="file" class="form-control-file" id="thumbnail" name="topic_thumbnail">
-                    </div>
-
-                    <div class="col-md-12" id="element">
-
-
-                    </div>
+                    {{--Subtopic snippet--}}
                     <div class="col-md-12">
-                        <a href="javascript:void(0)" class="btn btn-warning" id="add-element" onclick="addElement()">
-                            <i class="fa fa-plus"></i>
-                            Add
-                        </a>
+                        <label>Snippet</label>
+                        <textarea id="snippet_1">{{$subtopic->snippet}}</textarea>
                     </div>
 
                     <div class="col-md-12" style="margin-top: 10px">
-                        {{--                        <button type="submit" id="save" class="btn btn-primary">Update</button>--}}
                         <button type="submit" id="update" class="btn btn-primary">Update</button>
                     </div>
                 </div>

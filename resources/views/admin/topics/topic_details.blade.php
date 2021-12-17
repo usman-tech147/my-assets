@@ -14,7 +14,7 @@
     <div class="row bg-dark mb-2" style="padding-top: 10px; padding-bottom: 10px; border-radius: 5px">
         <div class="col-md-6">
             <p class="h3">
-                <a href="{{url()->previous()}}" style="text-decoration: none">
+                <a href="{{route('admin.getSubcategory.topics',[$topic->subcategory->id])}}" style="text-decoration: none">
                     <span style="color: cyan;"> Topics </span>
                 </a> /
                 <span> {{$topic->topic_title}} </span>
@@ -42,25 +42,21 @@
 
         <div class="col-md-10" id="show_content" style="display: none">
         </div>
-        {{--<div class="col-md-10" id="show_description">--}}
-        {{--<div class="row">--}}
-        {{--<div class="col-md-12 bg-danger">--}}
-        {{--{{$topic->topic_title}}--}}
-        {{--</div>--}}
-        {{--<div class="col-md-12">--}}
-        {{--{!! $topic->topic_description !!}--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
 
         <div class="col-md-10" id="show_description">
             <div class="card">
                 <h5 class="card-header clearfix">
                     {{$topic->topic_title}}
-{{--                    <a href="#" class="btn btn-sm btn-primary float-right">Copy</a>--}}
                 </h5>
-                <div class="card-body bg-dark" style="padding: 10px">
-                    {!! $topic->topic_description !!}
+                <div class="card-body" style="padding: 10px">
+                    <div class="card-row">
+                        <div class="col-md-12 bg-success mb-2" style="border-radius: 3px; padding:10px 10px 5px 10px">
+                            <p class="h3"> this is command </p>
+                        </div>
+                        <div class="col-md-12 bg-dark" style="border-radius: 3px; padding: 10px">
+                            {!! $topic->topic_description !!}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -93,7 +89,7 @@
                 data: {id: id, _token: '{{csrf_token()}}'},
                 success: function (response) {
                     $('#show_description').hide();
-                    let html = '<div class="card">\n' +
+                    let html = '<div class="card" style="padding: 10px">\n' +
                         '                <h5 class="card-header clearfix">\n' +
                         '                    ' + response[0]['subtitle'] + '\n' +
                         '<button class="btn btn-sm btn-primary float-right copy"' +
@@ -101,8 +97,14 @@
                         'Copy' +
                         '</button>\n' +
                         '                </h5>\n' +
-                        '                <div class="card-body bg-dark" style="padding:10px" id="text_' + response[0]['id'] + '">\n' +
-                        '                    ' + response[0]['snippet'] + '\n' +
+                        '                <div class="card-body" style="padding:10px">\n' +
+                        '<div class="col-md-12 bg-success mb-2" style="border-radius: 3px; padding:10px 10px 5px 10px">\n' +
+                        '                            <p class="h3"> ' + response[0]['command'] + ' </p>\n' +
+                        '                        </div>' +
+                        '<div class="col-md-12 bg-dark" style="border-radius: 3px; padding: 10px" id="text_' + response[0]['id'] + '">\n' +
+                        '                            ' + response[0]['snippet'] + '\n' +
+                        '                        </div>'+
+                        // '                    ' + response[0]['snippet'] + '\n' +
                         '                </div>\n' +
                         '            </div>';
                     $('#show_content').show().html(html);

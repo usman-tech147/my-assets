@@ -22,7 +22,7 @@ class TopicController extends Controller
 
     public function getSubcategoryTopics($id)
     {
-        $subcategory = $id;
+        $subcategory = Subcategory::find($id);
         return view('admin.topics.topics', compact('subcategory'));
     }
 
@@ -116,18 +116,59 @@ class TopicController extends Controller
 
     public function editTopic($id)
     {
-        $topic = Topic::find($id);
+        $topic = Topic::with('subtopics')->get()->find($id);
         return view('admin.topics.edit_topic',compact('topic'));
     }
 
     public function updateTopic(Request $request)
     {
         $topic = Topic::find($request->id);
+//        $topic->subcategory_id = $request->subcategory_id;
         $topic->topic_title = $request->topic_title;
-        $topic->topic_description = $request->topic_description;
+        $topic->topic_description = $this->checkValue($request->topic_description);
+        $date = date('Y_m_d-H-i-s');
+        if ($request->hasFile('topic_thumbnail')) {
+            $fileName = $date . '.' . $request->file('topic_thumbnail')->getClientOriginalName();
+            $request->file('topic_thumbnail')->move(public_path('/thumbnails/'), $fileName);
+            $topic->thumbnail = $fileName;
+        }
+        else{
+            $topic->thumbnail = 'no_image.jpg';
+        }
         $topic->save();
-        return redirect()->back();
+
+        $count = 0;
+        if(isset($request->snippets))
+        {
+            for($i=0; $i<count($request->snippets); $i++)
+            {
+                $subTopic = new Subtopic;
+                $subTopic->topic_id = $topic->id;
+                if(isset($request->subtitles[$i])){
+                    $subTopic->subtitle = $request->subtitles[$i];
+                }
+                if(isset($request->commands[$i])){
+                    $subTopic->command = $request->commands[$i];
+                }
+                if(isset($request->snippets[$i])){
+                    $subTopic->snippet = $request->snippets[$i];
+                }
+                if($subTopic->save()){
+                    $count++;
+                }
+                else{
+                    return response()->json(['data' => "subtopic not saved"]);
+                }
+            }
+        }
+        return "success";
 //        dd(Topic::find($request->id));
+    }
+
+    public function editSubtopic($id)
+    {
+        $subtopic = Subtopic::find($id);
+        return view('admin.topics.edit_subtopic',compact('subtopic'));
     }
 
     public function viewTopic($id)
