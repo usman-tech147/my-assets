@@ -171,6 +171,17 @@ class TopicController extends Controller
         return view('admin.topics.edit_subtopic',compact('subtopic'));
     }
 
+    public function updateSubtopic(Request $request)
+    {
+        $subtopic = Subtopic::find($request->id);
+        $subtopic->subtitle = $request->subtitle;
+        $subtopic->command = $request->command;
+        $subtopic->snippet = $request->snippet;
+        $subtopic->save();
+
+        return redirect()->back();
+    }
+
     public function viewTopic($id)
     {
         $topic = Topic::find($id);

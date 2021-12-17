@@ -3,7 +3,7 @@
     <div class="row bg-dark mb-2" style="padding-top: 10px; padding-bottom: 10px; border-radius: 5px">
         <div class="col-md-6">
             <p class="h3">
-                <a href="{{url()->previous()}}" style="text-decoration: none">
+                <a href="{{route('admin.getSubcategory.topics',[$topic->subcategory->id])}}" style="text-decoration: none">
                     <span style="color: cyan;"> Topics </span>
                 </a> /
                 <span> {{$topic->topic_title}} </span>
