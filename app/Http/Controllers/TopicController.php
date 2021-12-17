@@ -40,6 +40,7 @@ class TopicController extends Controller
                 }
             })
             ->where('subcategory_id',$request->subcategory)
+            ->orderByDesc('created_at')
             ->offset($start)
             ->limit($request->length)
             ->get()
@@ -51,6 +52,7 @@ class TopicController extends Controller
                 }
             })
             ->where('subcategory_id',$request->subcategory)
+            ->orderByDesc('created_at')
             ->count();
 
         $arrayName = array('1' => $topics, '2' => $total);

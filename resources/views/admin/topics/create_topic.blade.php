@@ -35,7 +35,7 @@
                     {{--Description--}}
                     <div class="col-md-12">
                         <label>Description</label>
-                        <textarea class="summernote" id="description" name="topic_description"></textarea>
+                        <textarea class="editor" id="snippet_1"></textarea>
                     </div>
 
                     {{--Thumbnail--}}
@@ -69,9 +69,11 @@
 
     <script>
 
-        let topic_number = 0;
+        let topic_number = 1;
+        let editor = [];
         $(document).ready(function () {
-            $('.summernote').summernote();
+            createCkeditor();
+            // $('.summernote').summernote();
         });
 
         function addElement() {
@@ -103,7 +105,7 @@
                 '                                            </div>\n' +
                 '                                            <div class="col-md-12">\n' +
                 '                                                <h3>Snippet</h3>\n' +
-                '<textarea class="summernote" name="snippets[]"></textarea>\n' +
+                '<textarea class="editor" id="snippet_'+topic_number+'" "></textarea>\n' +
                 '                                            </div>\n' +
                 '                                        </div>\n' +
                 '                                    </div>\n' +
@@ -112,19 +114,62 @@
                 '                        </div>';
 
             $('#element').append(html);
-            $('.summernote').summernote('foreColor', 'rgb(89, 89, 89)');
+            createCkeditor();
+            // $('.summernote').summernote('foreColor', 'rgb(89, 89, 89)');
 
+        }
+
+        function createCkeditor(){
+
+            ClassicEditor.create(document.querySelector("#snippet_"+topic_number), {
+                heading: {
+                    options: [
+                        {model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph'},
+                        {model: 'heading3', view: 'h3', title: 'Heading', class: 'ck-heading_heading3'},
+                    ]
+                },
+                toolbar: {
+                    items: [
+                        "heading",
+                        "fontFamily",
+                        "|",
+                        "bold",
+                        "italic",
+                        "link",
+                        "bulletedList",
+                        "numberedList",
+                        "blockQuote",
+                        "undo",
+                        "redo",
+                        "|",
+                        "contenteditable",
+                        // "tableColumn",
+                    ],
+                },
+
+            }).then( newEditor => {
+                editor[topic_number] = newEditor;
+            } ).catch(error => {
+                console.error(error);
+            });
         }
 
         $('#save').on('click', function (e) {
             e.preventDefault();
             var formData = new FormData(document.getElementById('topic-details'));
-
-            for (var pair of formData.entries()) {
-                console.log(pair[0] + ', ' + pair[1]);
+            formData.append('topic_description', editor[1].getData())
+            if(editor.length > 0 ){
+                for(var i=2; i<editor.length; i++){
+                    formData.append('snippets[]', editor[i].getData())
+                }
             }
+            // for (var pair of formData.entries()) {
+            //     console.log(pair[0] + ', ' + pair[1]);
+            // }
 
-            // var input_array= $("input[name='snippets[]']").map(function() {
+            // console.log(formData.get('topic_description'))
+
+            // var input_array= $("input[name='snippets']").map(function() {
             //     return this.value;
             // }).get();
             // console.log(input_array);

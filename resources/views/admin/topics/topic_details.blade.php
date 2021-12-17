@@ -1,5 +1,13 @@
 @extends('layouts.master')
 
+@section('css')
+    <style>
+        blockquote {
+            background-color: #000;
+        }
+    </style>
+@endsection
+
 @section('content')
 
     {{--<div class="copied"> Copied!!!</div>--}}
@@ -49,9 +57,9 @@
             <div class="card">
                 <h5 class="card-header clearfix">
                     {{$topic->topic_title}}
-                    <a href="#" class="btn btn-sm btn-primary float-right">Copy</a>
+{{--                    <a href="#" class="btn btn-sm btn-primary float-right">Copy</a>--}}
                 </h5>
-                <div class="card-body" style="padding: 10px">
+                <div class="card-body bg-dark" style="padding: 10px">
                     {!! $topic->topic_description !!}
                 </div>
             </div>
@@ -93,7 +101,7 @@
                         'Copy' +
                         '</button>\n' +
                         '                </h5>\n' +
-                        '                <div class="card-body" style="padding:10px" id="text_' + response[0]['id'] + '">\n' +
+                        '                <div class="card-body bg-dark" style="padding:10px" id="text_' + response[0]['id'] + '">\n' +
                         '                    ' + response[0]['snippet'] + '\n' +
                         '                </div>\n' +
                         '            </div>';
@@ -109,21 +117,15 @@
         function copyText(id) {
 
             var text = $('#text_' + id).text();
-            console.log(text);
-
-
-
-            // var text = $('#text_' + id).text();
-            // var sampleTextarea = document.createElement("textarea");
-            // document.body.appendChild(sampleTextarea);
-            // sampleTextarea.value = text; //save main text in it
-            // sampleTextarea.select(); //select textarea contenrs
-            // document.execCommand("copy");
-            // document.body.removeChild(sampleTextarea);
+            var sampleTextarea = document.createElement("textarea");
+            document.body.appendChild(sampleTextarea);
+            sampleTextarea.value = text; //save main text in it
+            sampleTextarea.select(); //select textarea contenrs
+            document.execCommand("copy");
+            document.body.removeChild(sampleTextarea);
 
             alert("copied");
         }
-
 
 
     </script>

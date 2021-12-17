@@ -22,9 +22,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.css">
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/theme/monokai.css">
 
-    <link rel="stylesheet" href="{{asset('summernote/summernote-bs4.min.css')}}">
     <link rel="stylesheet" href="{{asset('dist/css/lightbox.min.css')}}">
-    <link rel="stylesheet" href="{{asset('clipboard/copyToClipboard.css')}}">
 
 
 </head>
@@ -64,11 +62,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/mode/xml/xml.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/2.36.0/formatting.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/31.1.0/classic/ckeditor.js"></script>
 
-<script src="{{asset('summernote/summernote-bs4.min.js')}}"></script>
 <script src="{{asset('js/pagination.min.js')}}"></script>
 <script src="{{asset('dist/js/lightbox.min.js')}}"></script>
-<script src="{{asset('clipboard/clipboard.min.js')}}"></script>
 
 
 @yield('script')
