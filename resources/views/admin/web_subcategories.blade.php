@@ -27,14 +27,14 @@
                 <!-- small box -->
                 <div class="small-box bg-info">
                     <div class="inner">
-                        <h3>{{count($subcategory->topics->toArray())}}</h3>
+                        <h3>{{$subcategory['topics_count']}}</h3>
 
-                        <p>{{$subcategory->title}}</p>
+                        <p>{{$subcategory['title']}}</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-bag"></i>
                     </div>
-                    <a href="{{route('admin.getSubcategory.topics',[$subcategory->id])}}" class="small-box-footer">
+                    <a href="{{route('admin.getSubcategory.topics',[$subcategory['id']])}}" class="small-box-footer">
                         Topics <i class="fas fa-arrow-circle-right"></i>
                     </a>
                 </div>

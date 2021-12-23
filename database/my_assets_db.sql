@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 19, 2021 at 10:44 PM
--- Server version: 10.1.34-MariaDB
--- PHP Version: 7.4.15
+-- Generation Time: Dec 23, 2021 at 03:16 PM
+-- Server version: 10.4.19-MariaDB
+-- PHP Version: 7.4.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -33,7 +33,7 @@ CREATE TABLE `admins` (
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'usmanarif.9219@gmail.com',
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'abcd1234',
-  `is_super_admin` tinyint(1) NOT NULL DEFAULT '1',
+  `is_super_admin` tinyint(1) NOT NULL DEFAULT 1,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -64,7 +64,8 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `title`, `created_at`, `updated_at`) VALUES
-(1, 'Laravel', '2021-12-16 13:05:39', '2021-12-16 13:05:39');
+(1, 'Laravel', '2021-12-16 13:05:39', '2021-12-16 13:05:39'),
+(2, 'Important', '2021-12-23 05:40:49', '2021-12-23 05:40:49');
 
 -- --------------------------------------------------------
 
@@ -79,7 +80,7 @@ CREATE TABLE `failed_jobs` (
   `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -133,7 +134,7 @@ CREATE TABLE `personal_access_tokens` (
   `tokenable_id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abilities` text COLLATE utf8mb4_unicode_ci,
+  `abilities` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -158,7 +159,35 @@ CREATE TABLE `subcategories` (
 --
 
 INSERT INTO `subcategories` (`id`, `category_id`, `title`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Mymotivz', '2021-12-19 16:25:30', '2021-12-19 16:25:30');
+(1, 1, 'Mymotivz', '2021-12-19 16:25:30', '2021-12-19 16:25:30'),
+(3, 2, '5-Model', '2021-12-23 05:41:26', '2021-12-23 05:41:26'),
+(4, 2, '2-Migration', '2021-12-23 05:41:35', '2021-12-23 05:41:35'),
+(6, 2, '12-Factory', '2021-12-23 05:42:24', '2021-12-23 05:42:24'),
+(7, 2, '13-Seeds', '2021-12-23 05:42:33', '2021-12-23 05:42:33'),
+(8, 2, '14-Commands', '2021-12-23 05:42:49', '2021-12-23 05:42:49'),
+(9, 2, '7-One to One', '2021-12-23 05:47:25', '2021-12-23 05:47:25'),
+(10, 2, '8-One to Many', '2021-12-23 05:47:35', '2021-12-23 05:47:35'),
+(11, 2, '9-Many to Many', '2021-12-23 05:47:53', '2021-12-23 05:47:53'),
+(12, 2, '10-Polymorphic Relationship', '2021-12-23 05:48:14', '2021-12-23 05:48:14'),
+(13, 2, '16-Sessions', '2021-12-23 05:48:58', '2021-12-23 05:48:58'),
+(14, 2, '17-Cookies', '2021-12-23 05:49:05', '2021-12-23 05:49:05'),
+(16, 2, '1-Php OOP', '2021-12-23 05:49:46', '2021-12-23 05:49:46'),
+(17, 2, '15-Email and Notifications', '2021-12-23 05:52:31', '2021-12-23 05:52:31'),
+(18, 2, '18-Service Providers', '2021-12-23 05:52:47', '2021-12-23 05:52:47'),
+(19, 2, '19-Service Containers', '2021-12-23 05:52:58', '2021-12-23 05:52:58'),
+(20, 2, '20-Fasades', '2021-12-23 05:53:20', '2021-12-23 05:53:20'),
+(21, 2, '6-Exceptions', '2021-12-23 05:53:40', '2021-12-23 05:53:40'),
+(22, 2, '5-Request Lifecycle', '2021-12-23 05:54:25', '2021-12-23 05:54:25'),
+(23, 2, '21-View Composer', '2021-12-23 05:54:37', '2021-12-23 05:54:37'),
+(24, 2, '3-CRUD', '2021-12-23 05:55:15', '2021-12-23 05:55:15'),
+(25, 2, '4-Validations', '2021-12-23 05:55:44', '2021-12-23 05:55:44'),
+(26, 2, '22-Authentication and Authorization', '2021-12-23 05:56:26', '2021-12-23 05:56:26'),
+(27, 2, '23-Gates and Policies', '2021-12-23 05:56:46', '2021-12-23 05:56:46'),
+(28, 2, '11-Collections and Arrays', '2021-12-23 05:57:13', '2021-12-23 05:57:13'),
+(29, 2, '26-Api\'s', '2021-12-23 05:57:32', '2021-12-23 05:57:32'),
+(30, 2, '27-Postman', '2021-12-23 05:57:45', '2021-12-23 05:57:45'),
+(31, 2, '25-Php Unit Testing', '2021-12-23 05:58:02', '2021-12-23 05:58:02'),
+(32, 2, '24-Helper Functions', '2021-12-23 06:07:57', '2021-12-23 06:07:57');
 
 -- --------------------------------------------------------
 
@@ -169,9 +198,9 @@ INSERT INTO `subcategories` (`id`, `category_id`, `title`, `created_at`, `update
 CREATE TABLE `subtopics` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `topic_id` bigint(20) UNSIGNED NOT NULL,
-  `subtitle` text COLLATE utf8mb4_unicode_ci,
-  `command` text COLLATE utf8mb4_unicode_ci,
-  `snippet` longtext COLLATE utf8mb4_unicode_ci,
+  `subtitle` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `command` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `snippet` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -195,9 +224,9 @@ CREATE TABLE `topics` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `subcategory_id` bigint(20) UNSIGNED NOT NULL,
   `topic_title` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `topic_description` mediumtext COLLATE utf8mb4_unicode_ci,
+  `topic_description` mediumtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `thumbnail` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `view_status` int(10) UNSIGNED DEFAULT '0',
+  `view_status` int(10) UNSIGNED DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -209,7 +238,39 @@ CREATE TABLE `topics` (
 INSERT INTO `topics` (`id`, `subcategory_id`, `topic_title`, `topic_description`, `thumbnail`, `view_status`, `created_at`, `updated_at`) VALUES
 (1, 1, 'Jobs Random Data', NULL, 'no_image.jpg', 0, '2021-12-19 16:30:03', '2021-12-19 16:30:03'),
 (2, 1, 'Candidates Random Data', '<ul><li>Rename seeds folder to seeders</li><li>php artisan make:seed NewCandidateSeed</li></ul><blockquote><p>Composer.json add two highlighted lines</p><p>\"autoload\": <i>{</i><br><i>&nbsp; &nbsp;&nbsp;</i>\"files\": <i>[</i><br><i>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</i>\"app/helper/helper.php\"<br>&nbsp; &nbsp;&nbsp;<i>]</i>,<br>&nbsp; &nbsp; \"psr-4\": <i>{</i><br><i>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</i>\"App\\\\\": \"app/\",<br>&nbsp; &nbsp; &nbsp; &nbsp;<strong> \"Database\\\\Factories\\\\\": \"database/factories/\",</strong><br><strong>&nbsp; &nbsp; &nbsp; &nbsp; \"Database\\\\Seeders\\\\\": \"database/seeders/\"</strong><br>&nbsp; &nbsp;&nbsp;<i>}</i><br><i>}</i>,</p></blockquote>', 'no_image.jpg', 0, '2021-12-19 16:40:29', '2021-12-19 16:40:29'),
-(3, 1, 'Clients Random Data', NULL, 'no_image.jpg', 0, '2021-12-19 16:42:41', '2021-12-19 16:42:41');
+(3, 1, 'Clients Random Data', NULL, 'no_image.jpg', 0, '2021-12-19 16:42:41', '2021-12-19 16:42:41'),
+(5, 4, 'Create Migration', NULL, 'no_image.jpg', 0, '2021-12-23 07:45:15', '2021-12-23 07:45:15'),
+(6, 4, 'Change Table Name', NULL, 'no_image.jpg', 0, '2021-12-23 07:45:45', '2021-12-23 07:45:45'),
+(7, 4, 'Change Column Name, position and Constraints', NULL, 'no_image.jpg', 0, '2021-12-23 07:46:42', '2021-12-23 07:46:42'),
+(8, 4, 'Rollback Migration', NULL, 'no_image.jpg', 0, '2021-12-23 07:47:23', '2021-12-23 07:47:23'),
+(9, 4, 'Add and Remove Table columns', NULL, 'no_image.jpg', 0, '2021-12-23 07:48:38', '2021-12-23 07:48:38'),
+(10, 4, 'Foreign Key Constraints', NULL, 'no_image.jpg', 0, '2021-12-23 07:53:09', '2021-12-23 07:53:09'),
+(11, 4, 'Toggling foreign key Constraints', NULL, 'no_image.jpg', 0, '2021-12-23 07:54:34', '2021-12-23 07:54:34'),
+(12, 24, 'Create Record with Mass assignment', NULL, 'no_image.jpg', 0, '2021-12-23 07:56:01', '2021-12-23 07:56:01'),
+(13, 24, 'Create Record (1 to Many)', NULL, 'no_image.jpg', 0, '2021-12-23 07:56:33', '2021-12-23 07:56:33'),
+(14, 24, 'Create Record (Many to Many)', NULL, 'no_image.jpg', 0, '2021-12-23 07:56:53', '2021-12-23 07:56:53'),
+(15, 24, 'Edit Record', NULL, 'no_image.jpg', 0, '2021-12-23 07:57:17', '2021-12-23 07:57:17'),
+(16, 24, 'Edit Record (1 to Many)', NULL, 'no_image.jpg', 0, '2021-12-23 08:20:07', '2021-12-23 08:20:07'),
+(17, 24, 'Edit Record (Many to Many)', NULL, 'no_image.jpg', 0, '2021-12-23 08:20:31', '2021-12-23 08:20:31'),
+(18, 24, 'Delete Record (All scenarios)', NULL, 'no_image.jpg', 0, '2021-12-23 08:21:00', '2021-12-23 08:21:00'),
+(19, 25, 'Create Custom Request For Validation', NULL, 'no_image.jpg', 0, '2021-12-23 08:23:12', '2021-12-23 08:23:12'),
+(20, 25, 'Create Custom Rules For Validation', NULL, 'no_image.jpg', 0, '2021-12-23 08:23:42', '2021-12-23 08:23:42'),
+(21, 25, 'Validation for string input', NULL, 'no_image.jpg', 0, '2021-12-23 08:24:14', '2021-12-23 08:24:14'),
+(22, 25, 'Validation for unique email', NULL, 'no_image.jpg', 0, '2021-12-23 08:24:38', '2021-12-23 08:24:38'),
+(23, 25, 'Validation for array (multiple checkbox)', NULL, 'no_image.jpg', 0, '2021-12-23 08:25:07', '2021-12-23 08:25:07'),
+(24, 25, 'Validation for single value (dropdown)', NULL, 'no_image.jpg', 0, '2021-12-23 08:25:52', '2021-12-23 08:25:52'),
+(25, 25, 'Validation for files (extenstion, length)', NULL, 'no_image.jpg', 0, '2021-12-23 08:26:40', '2021-12-23 08:26:40'),
+(26, 25, 'Regex rule for url', NULL, 'no_image.jpg', 0, '2021-12-23 08:27:05', '2021-12-23 08:28:08'),
+(27, 25, 'Regex rule for location', NULL, 'no_image.jpg', 0, '2021-12-23 08:27:56', '2021-12-23 08:27:56'),
+(28, 25, 'Regex rule for email', NULL, 'no_image.jpg', 0, '2021-12-23 08:28:44', '2021-12-23 08:28:44'),
+(29, 3, 'Model Default Settings', NULL, 'no_image.jpg', 0, '2021-12-23 08:45:14', '2021-12-23 08:49:27'),
+(30, 3, 'Model (1 to Many) relationship', NULL, 'no_image.jpg', 0, '2021-12-23 08:45:54', '2021-12-23 08:45:54'),
+(31, 3, 'Model (Many to many) relationship', NULL, 'no_image.jpg', 0, '2021-12-23 08:46:29', '2021-12-23 08:46:29'),
+(32, 3, 'Pivot Model', NULL, 'no_image.jpg', 0, '2021-12-23 08:46:45', '2021-12-23 08:46:45'),
+(33, 3, 'Model scopes', NULL, 'no_image.jpg', 0, '2021-12-23 08:46:58', '2021-12-23 08:46:58'),
+(34, 3, 'Model Accessors', NULL, 'no_image.jpg', 0, '2021-12-23 08:47:10', '2021-12-23 08:47:10'),
+(35, 3, 'Model Mutotators', NULL, 'no_image.jpg', 0, '2021-12-23 08:47:27', '2021-12-23 08:47:27'),
+(36, 3, 'Model appends', NULL, 'no_image.jpg', 0, '2021-12-23 08:51:38', '2021-12-23 08:51:38');
 
 -- --------------------------------------------------------
 
@@ -314,7 +375,7 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -338,7 +399,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `subcategories`
 --
 ALTER TABLE `subcategories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `subtopics`
@@ -350,7 +411,7 @@ ALTER TABLE `subtopics`
 -- AUTO_INCREMENT for table `topics`
 --
 ALTER TABLE `topics`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `users`

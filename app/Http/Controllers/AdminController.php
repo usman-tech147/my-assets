@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Subcategory;
+use App\Models\Topic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
@@ -33,7 +34,15 @@ class AdminController extends Controller
 
     public function getSubcategories(Category $category)
     {
-        $subcategories = $category->subcategories->sortBy('title');
+        $subcategories_temp = $category->subcategories()->withCount('topics')->get();
+//        dd($subcategories_temp);
+        $subcategories = [];
+
+        for($i=0; $i<$subcategories_temp->count(); $i++){
+            $temp = explode('-', $subcategories_temp[$i]->title);
+            $subcategories += [$temp[0] => $subcategories_temp[$i]->toArray()];
+        }
+        ksort($subcategories);
         return view('admin.web_subcategories',compact('subcategories'));
     }
 
