@@ -76,6 +76,14 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item menu-open">
+                    <a href="{{route('product.index')}}" class="nav-link">
+                        <i class="fa fa-list" aria-hidden="true"></i>
+                        <p style="margin-left: 10px;">
+                            Product
+                        </p>
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="fa fa-code" aria-hidden="true"></i>
