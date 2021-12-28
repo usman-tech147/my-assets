@@ -36,7 +36,7 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::all();
-        $colors = Color::all()->chunk(3);
+        $colors = Color::with('products')->get()->chunk(3);
         $sizes = Size::select(['id', 'name'])->get();
         $qualities = Quality::select(['id', 'name'])->get();
         $fabrics = Fabric::select(['id', 'name'])->get()->chunk(3);
@@ -68,12 +68,15 @@ class ProductController extends Controller
                 $product->save();
 
                 // save data in pivot tables
-                $colors = [];
-                foreach ($request->colors as $key => $value) {
-                    $quantity = [$value => ['in_stock' => $request->input('color-quantity-')[$request->colors[$key]]]];
-                    $colors += $quantity;
+                if(isset($request->color_quantity)){
+                    foreach($request->color_quantity as $key => $quantity){
+                        if($quantity){
+                            $product->colors()->attach($key , ['in_stock' => $quantity]);
+                        }else{
+                            $product->colors()->attach($key , ['in_stock' => 0]);
+                        }
+                    }
                 }
-                $product->colors()->sync($colors);
                 $product->sizes()->sync($request->sizes);
 
             });
@@ -175,9 +178,23 @@ class ProductController extends Controller
         return response()->json(['id' => $request->product_id]);
     }
 
-    public function show()
+    public function show($id)
     {
-        return view('admin.product.show');
+//        dd(Product::find($id));
+//        $product = Product::with(['subcategory.category'])
+//            ->with(['colors'])
+//            ->with(['sizes'])
+//            ->with(['quality'])
+//            ->with(['fabric'])
+//            ->where('id',$id)
+//            ->get();
+        DB::connection()->enableQueryLog();
+        $product = Product::with('subcategory.category','colors','sizes','quality','fabric')
+            ->where('id',$id)->get();
+        $queries = DB::getQueryLog();
+        dd($queries);
+//        dd($product);
+        return view('admin.product.show', compact('product'));
     }
 
 

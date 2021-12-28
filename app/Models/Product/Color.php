@@ -19,4 +19,9 @@ class Color extends Model
             ->withTimestamps()
             ->withPivot(['in_stock']);
     }
+
+    public function getNameAttribute($value)
+    {
+        return ucwords($value);
+    }
 }

@@ -15,4 +15,9 @@ class Fabric extends Model
     {
         return $this->hasMany(Product::class);
     }
+
+    public function getNameAttribute($value)
+    {
+        return ucwords($value);
+    }
 }

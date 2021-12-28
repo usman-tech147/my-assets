@@ -47,7 +47,7 @@
                                             $product[0]->subcategory->category->id == $category->id)
                                             ? 'selected' : '' }}
                                             value={{$category->id}}
-                                        {{old('category') == $category->id ? 'selected':""}}>
+                                            {{old('category') == $category->id ? 'selected':""}}>
                                         {{$category->name}}
                                     </option>
                                 @endforeach
@@ -130,9 +130,14 @@
                                 <div class="col-md-8" id="pro_colors">
                                     <div class="row">
                                         @foreach($colors as $colorChuncks)
-                                            <div class="col-md-4">
-                                                @foreach($colorChuncks as $key => $color)
 
+                                            <div class="col-md-4">
+                                                @foreach($colorChuncks as $color)
+                                                    {{--<div>--}}
+                                                    {{--@foreach($color->products as $product)--}}
+                                                    {{--<p> {{$product->pivot->color_fk_id}} - {{$color->id}} </p>--}}
+                                                    {{--@endforeach--}}
+                                                    {{--</div>--}}
                                                     <div class="form-check">
                                                         <input class="form-check-input enable-color-quantity"
                                                                type="checkbox" name="colors[]"
@@ -148,14 +153,23 @@
                                                             {{$color->name}}
                                                         </span>
                                                         <label for="">
-                                                            {{isset($product[0]->colors) && $product[0]->colors->contains($color->id) ? $product[0]->colors : 'not set'}}
-                                                            {{$loop->index}}
+
+                                                            {{--@if(isset($product[0]->colors) && $product[0]->colors->contains($color->id))--}}
+                                                                {{--@foreach($color->products as $product)--}}
+                                                                    {{--{{$product->pivot->in_stock}}--}}
+                                                                {{--@endforeach--}}
+                                                            {{--@endif--}}
+                                                            {{--{{isset($product[0]->colors) &&--}}
+                                                            {{--$product[0]->colors->contains($color->id) ?--}}
+                                                            {{--"set" : 'not set'}}--}}
+                                                            {{--$product[0]->colors[$color->id]->pivot->in_stock : 'not set'}}--}}
                                                         </label>
                                                         <input id="qty-{{$color->id}}"
-                                                               type="text" name="color-quantity-[{{$color->id}}]"
+                                                               type="text" name="color_quantity[{{$color->id}}]"
                                                                class="form-control color-quantity"
                                                                disabled
-{{--                                                               value="{{isset($product[0]->colors) && $product[0]->colors->contains($color->id) ? $color->pivot : 'not set'}}"--}}
+                                                               value="{{isset($product[0]->colors) &&
+                                                               $product[0]->colors->contains($color->id) ? $color->pivot : 'not set'}}"
                                                                style="height: 25px">
                                                     </div>
                                                 @endforeach

@@ -16,4 +16,9 @@ class Category extends Model
     {
         return $this->hasMany(Subcategory::class,'category_fk_id');
     }
+
+    public function getNameAttribute($value)
+    {
+        return ucwords($value);
+    }
 }

@@ -2,14 +2,11 @@
 
 namespace App\Models\Product;
 
-use Illuminate\Database\Eloquent\Builder;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\File;
 
-
-/**
- * @method static Builder where($key, $operator, $value=null)
- * */
 
 class Product extends Model
 {
@@ -24,12 +21,16 @@ class Product extends Model
     }
     public function fabric()
     {
-        return $this->belongsTo(Fabric::class,'fabric_fk_id');
+        return $this->belongsTo(Fabric::class,'fabric_fk_id')->withDefault([
+            'name' => 'N/A'
+        ]);
     }
 
     public function quality()
     {
-        return $this->belongsTo(Quality::class,'quality_fk_id');
+        return $this->belongsTo(Quality::class,'quality_fk_id')->withDefault([
+            'name' => 'N/A'
+        ]);
     }
 
     public function colors()
@@ -45,6 +46,26 @@ class Product extends Model
         return $this->belongsToMany(Size::class,'product_size',
             'product_fk_id','size_fk_id')
             ->withTimestamps();
+    }
+
+    public function getNameAttribute($value)
+    {
+        return ucwords($value);
+    }
+
+    public function getImageAttribute($value)
+    {
+        return (is_null($value) || !(File::exists('images/'.$value))) ? 'nophoto.png' : $value;
+    }
+
+    public function getPriceAttribute($value)
+    {
+        return '$'.number_format($value,2,'.','');
+    }
+
+    public function getCreatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->toFormattedDateString();
     }
 
 }

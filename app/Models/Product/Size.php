@@ -15,4 +15,9 @@ class Size extends Model
     {
         return $this->belongsToMany(Product::class,'product_size');
     }
+
+    public function getNameAttribute($value)
+    {
+        return ucwords($value);
+    }
 }

@@ -12,10 +12,7 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Product</th>
-                <th scope="col">Price</th>
-                <th scope="col">Subcategory</th>
-                <th scope="col">Status</th>
-                <th scope="col">Image</th>
+                <th scope="col">Description</th>
                 <th scope="col">Actions</th>
             </tr>
             </thead>
@@ -24,16 +21,10 @@
                 <tr>
                     <th scope="row">{{$product['id']}}</th>
                     <td>{{$product['name']}}</td>
-                    <td>{{$product['price']}}</td>
-                    <td>{{$product['subcategory']['name']}}</td>
-                    <td>{{$product['status']}}</td>
-                    <td>
-                        <img src="{{asset('/images/'.$product['image'])}}"
-                             alt="" height="50px" width="50px">
-                    </td>
+                    <td>{!!str_replace(',','<br>',$product['description'])!!}</td>
                     <td>
                         <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                            <a class="btn btn-primary" href="#"> view</a>
+                            <a class="btn btn-primary" href="{{route('product.show',$product['id'])}}"> view</a>
                             <form id="deleteProduct{{$product['id']}}" role="form" style="display: none">
                                 @csrf
                                 <input type="hidden" name="product_id" value="{{$product['id']}}">

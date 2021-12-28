@@ -29,7 +29,7 @@ Route::post('/product/store', [ProductController::class, 'store'])->name('produc
 Route::get('/product/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
 Route::post('/product/update', [ProductController::class, 'update'])->name('product.update');
 Route::post('/product/delete',[ProductController::class, 'delete'])->name('product.delete');
-Route::get('/product/show', [ProductController::class, 'show'])->name('show');
+Route::get('/product/show/{id}', [ProductController::class, 'show'])->name('product.show');
 
 Route::get('/customer',[\App\Http\Controllers\CustomerProductController::class, 'index'])->name('customer');
 Route::post('/customer/filter-product',[\App\Http\Controllers\CustomerProductController::class, 'filterProduct'])->name('filter.product');
